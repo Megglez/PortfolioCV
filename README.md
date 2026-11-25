@@ -12,11 +12,11 @@ Plain HTML, CSS and JavaScript ES modules. There is no build step and there are 
 index.html              Page markup
 css/styles.css          All styles
 js/main.js              Entry point
+js/utils.js             Shared helpers (`$`, seeded PRNG)
 js/fire-sim.js          FireAway fire-spread sandbox
 js/architecture.js      FireAway architecture walkthrough
 js/nursery.js           Chaotic Plants nursery simulation
-js/timeline.js          Timeline tab
-Megan_Lai_CV_v2.1.pdf   Downloadable CV
+js/timeline.js          Tabs and timeline
 ```
 
 ## Run locally

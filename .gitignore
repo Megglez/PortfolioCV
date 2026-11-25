@@ -3,3 +3,6 @@ node_modules/
 .vscode/
 .idea/
 *.log
+
+# Local CV PDF contains personal contact details
+*.pdf

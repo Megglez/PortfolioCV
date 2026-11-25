@@ -39,7 +39,7 @@ export function initArchitecture({ reduceMotion }) {
   const count = $('arch-count');
   const playBtn = $('arch-play');
   const dotsWrap = $('arch-dots');
-  let cur = 0, playing = false, timer = null, raf = null, inView = true, packets = [];
+  let cur = 0, playing = false, timer = null, raf = null, onScreen = true, pageVisible = true, packets = [];
 
   const dotBtns = STEPS.map((s, i) => {
     const b = document.createElement('button');
@@ -107,11 +107,11 @@ export function initArchitecture({ reduceMotion }) {
   }
   function loop() {
     if (raf) { cancelAnimationFrame(raf); raf = null; }
-    if (!reduceMotion && inView) raf = requestAnimationFrame(frame);
+    if (!reduceMotion && onScreen && pageVisible) raf = requestAnimationFrame(frame);
   }
   function schedule() {
     if (timer) { clearInterval(timer); timer = null; }
-    if (playing && inView) timer = setInterval(() => { show(cur + 1); }, 4800);
+    if (playing && onScreen && pageVisible) timer = setInterval(() => { show(cur + 1); }, 4800);
   }
   function setPlaying(p) {
     playing = p;
@@ -124,9 +124,9 @@ export function initArchitecture({ reduceMotion }) {
   $('arch-next').addEventListener('click', () => { setPlaying(false); show(cur + 1); });
   playBtn.addEventListener('click', () => { setPlaying(!playing); });
   if (window.IntersectionObserver) {
-    new IntersectionObserver((list) => { inView = list[0].isIntersecting; loop(); schedule(); }).observe(fig);
+    new IntersectionObserver((list) => { onScreen = list[list.length - 1].isIntersecting; loop(); schedule(); }).observe(fig);
   }
-  document.addEventListener('visibilitychange', () => { inView = !document.hidden; loop(); schedule(); });
+  document.addEventListener('visibilitychange', () => { pageVisible = !document.hidden; loop(); schedule(); });
 
   show(0);
   setPlaying(!reduceMotion);

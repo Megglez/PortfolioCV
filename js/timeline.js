@@ -110,6 +110,8 @@ export function initTabsAndTimeline({ reduceMotion }) {
     setTab('list');
     if (!target) return;
     target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
     target.classList.remove('flash');
     void target.offsetWidth; // force reflow so the flash animation restarts
     target.classList.add('flash');

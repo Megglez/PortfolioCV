@@ -376,7 +376,7 @@ export function initNursery() {
 
   // Pause the loop while the canvas is off screen
   if (window.IntersectionObserver) {
-    new IntersectionObserver((list) => { inView = list[0].isIntersecting; startLoop(); }).observe(cvs);
+    new IntersectionObserver((list) => { inView = list[list.length - 1].isIntersecting; startLoop(); }).observe(cvs);
   }
   if (window.ResizeObserver) new ResizeObserver(() => { size(); render(); }).observe(cvs);
 

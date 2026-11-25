@@ -36,10 +36,12 @@ function initCopyEmail() {
 const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
 initCopyEmail();
-const sim = initFireSim({ reduceMotion });
-const nursery = initNursery();
-initArchitecture({ reduceMotion });
-initTabsAndTimeline({ reduceMotion });
+let sim = { redraw() {} };
+try { sim = initFireSim({ reduceMotion }); } catch (err) { console.error(err); }
+let nursery = { redraw() {} };
+try { nursery = initNursery(); } catch (err) { console.error(err); }
+try { initArchitecture({ reduceMotion }); } catch (err) { console.error(err); }
+try { initTabsAndTimeline({ reduceMotion }); } catch (err) { console.error(err); }
 
 // Canvas text uses web fonts: redraw once they have loaded
 if (document.fonts && document.fonts.ready) {
